@@ -1,5 +1,5 @@
 <h2 align="center">
-sophur's mod template<br/><br/>
+Show Item<br/><br/>
 </h2>
 
-### An amazing description here
+### Show the item you're holding in chat!

@@ -10,23 +10,14 @@ val version = property("mod.version").toString()
 base.archivesName = "${modID}-${version}"
 
 loom {
-    splitEnvironmentSourceSets()
-
     runs {
         all {
             jvmArguments.addAll("-XX:+AllowEnhancedClassRedefinition", "-XX:+UseG1GC")
         }
-
-        named("client") {
-            jvmArguments.addAll("-Ddevauth.enabled=true")
-        }
-
-        //remove(runs["server"])
     }
 
     mods.create(modID) {
         sourceSet(sourceSets.getByName("main"))
-        sourceSet(sourceSets.getByName("client"))
     }
 
     accessWidenerPath = file("src/main/resources/$modID.classtweaker")
@@ -39,11 +30,6 @@ repositories {
         forRepository { maven("https://api.modrinth.com/maven") { name = "Modrinth" } }
         filter { includeGroup("maven.modrinth") }
     }
-
-    exclusiveContent {
-        forRepository { maven("https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1") }
-        filter { includeGroup("me.djtheredstoner") }
-    }
 }
 
 dependencies {
@@ -52,7 +38,6 @@ dependencies {
     implementation(libs.fabric.loader)
     implementation(libs.fabric.api)
 
-    localRuntime(libs.devAuth)
     localRuntime(libs.modMenu)
     localRuntime(libs.noChatRestrictions)
     localRuntime(libs.sodium)

@@ -1,0 +1,12 @@
+{
+  "commands.showitem.empty.mainhand": "You are not holding anything in your main hand",
+  "commands.showitem.empty.offhand": "You are not holding anything in your off hand",
+  "commands.showitem.empty.feet": "You are not wearing anything on your feet",
+  "commands.showitem.empty.legs": "You are not wearing anything on your legs",
+  "commands.showitem.empty.chest": "You are not wearing anything on your chest",
+  "commands.showitem.empty.head": "You are not wearing anything on your head",
+  "chat.showitem.hand": "%s is holding %s",
+  "chat.showitem.humanoid_armor": "%s is wearing %s",
+  "chat.showitem.stack.hand": "%s is holding %s %s",
+  "chat.showitem.stack.humanoid_armor": "%s is wearing %s %s"
+}
