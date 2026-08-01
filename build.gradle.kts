@@ -1,8 +1,10 @@
 plugins {
     java
     alias(libs.plugins.fabric.loom)
+    alias(libs.plugins.minotaur)
 }
 
+val modrinthProjectID = property("modrinth.id").toString()
 val modID = property("mod.id").toString()
 val modGroup = property("mod.group").toString()
 val version = property("mod.version").toString()
@@ -70,3 +72,17 @@ tasks.withType<JavaCompile> {
 }
 
 tasks.jar { from("LICENSE") { rename { "${it}_${base.archivesName.get()}" } } }
+
+modrinth {
+    token = System.getenv("MODRINTH_TOKEN")
+    projectId = modrinthProjectID
+    versionNumber = version
+    versionType = "release"
+    uploadFile.set(tasks.jar)
+    gameVersions.addAll(libs.versions.minecraft.get())
+    loaders.add("fabric")
+    dependencies {
+        required.project("fabric-api")
+    }
+    syncBodyFrom = rootProject.file("README.md").readText()
+}
