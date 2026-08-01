@@ -5,7 +5,7 @@
   "commands.showitem.empty.legs": "sina jo e ala lon noka",
   "commands.showitem.empty.chest": "sina jo e ala lon sijelo",
   "commands.showitem.empty.head": "sina jo e ala lon lawa",
-  "chat.showitem.hand": "%s jo e %s lon luka",
+  "chat.showitem.hand": "%s jo e %s lon luka ona",
   "chat.showitem.humanoid_armor": "%s jo e %s lon sijelo ona",
   "chat.showitem.stack.hand": "%s jo e %3$s %2$s lon luka ona",
   "chat.showitem.stack.humanoid_armor": "%s jo e %3$s %2$s lon sijelo ona"
