@@ -21,8 +21,6 @@ loom {
     mods.create(modID) {
         sourceSet(sourceSets.getByName("main"))
     }
-
-    accessWidenerPath = file("src/main/resources/$modID.classtweaker")
 }
 
 repositories {

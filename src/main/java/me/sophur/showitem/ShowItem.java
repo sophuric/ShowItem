@@ -1,14 +1,9 @@
 package me.sophur.showitem;
 
 import com.mojang.brigadier.Command;
-import com.mojang.brigadier.CommandDispatcher;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.command.v2.ArgumentTypeRegistry;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
-import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.commands.Commands;
-import net.minecraft.commands.synchronization.SingletonArgumentInfo;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
@@ -79,7 +74,6 @@ public final class ShowItem implements ModInitializer {
                     "chat.showitem." + slotType, playerName, itemName);
 
             playerList.broadcastSystemMessage(message, false);
-            player.connection.detectRateSpam();
 
             return 1;
         };

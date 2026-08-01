@@ -1,2 +1,0 @@
-classTweaker v2 official
-accessible method net/minecraft/server/network/ServerGamePacketListenerImpl detectRateSpam ()V
