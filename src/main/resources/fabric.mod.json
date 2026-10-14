@@ -11,11 +11,11 @@
     "sources": "https://github.com/sophuric/ShowItem"
   },
   "license": "MPL-2.0",
-  "icon": "assets/${mod_id}/icon.png",
+  "icon": "assets/showitem/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "${mod_group}.ShowItem"
+      "me.sophur.showitem.ShowItem"
     ]
   },
   "depends": {
