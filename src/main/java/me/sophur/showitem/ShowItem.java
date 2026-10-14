@@ -4,12 +4,14 @@ import com.mojang.brigadier.Command;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.PlayerList;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ItemLore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,6 +52,17 @@ public final class ShowItem implements ModInitializer {
         return showItemRunner(slot.equipmentSlot);
     }
 
+    private static final Style DEFAULT_STYLE = Style.EMPTY
+            .withBold(false)
+            .withItalic(false)
+            .withUnderlined(false)
+            .withStrikethrough(false)
+            .withObfuscated(false)
+            .withInsertion(null)
+            .withColor(TextColor.WHITE)
+            .withClickEvent(null)
+            .withHoverEvent(null);
+
     private static Command<CommandSourceStack> showItemRunner(EquipmentSlot slot) {
         return context -> {
             CommandSourceStack source = context.getSource();
@@ -65,7 +78,24 @@ public final class ShowItem implements ModInitializer {
             PlayerList playerList = source.getServer().getPlayerList();
 
             var playerName = player.getDisplayName();
-            var itemName = item.getDisplayName();
+            Component itemName;
+            if (item.has(DataComponents.CUSTOM_NAME)) {
+                var newItem = item.copy();
+                // add item name to lore if it has a custom name
+                var lore = newItem.getOrDefault(DataComponents.LORE, new ItemLore(List.of()));
+                try {
+                    var loreLine = Component.empty(); // so we can set the default style to normal
+                    loreLine.append(newItem.getItemName());
+                    loreLine.setStyle(DEFAULT_STYLE.withColor(newItem.getRarity().color()));
+                    lore = lore.withLineAdded(loreLine);
+                    newItem.set(DataComponents.LORE, lore);
+                } catch (IllegalArgumentException _) {
+                    // too many lines already, don't worry about adding item name
+                }
+                itemName = newItem.getDisplayName();
+            } else {
+                itemName = item.getDisplayName();
+            }
             MutableComponent message;
 
             if (item.isStackable()) message = Component.translatable(
